@@ -120,6 +120,10 @@ abstract class AbstractWebDriver
             $url .= '/' . $parameters;
         }
 
+        if(null === $parameters && $requestMethod === 'POST') {
+            $parameters = ["foo" => "bar"];
+        }
+        
         $this->assertSerializable($parameters);
 
         list($rawResult, $info) = ServiceFactory::getInstance()->getService('service.curl')->execute($requestMethod, $url, $parameters, $extraOptions);
